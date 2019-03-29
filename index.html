@@ -84,13 +84,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <ol>
+<li>注册Github/Gitee账号，安装Git客户端，生成并配置GitHub公钥，截图步骤略（这一步是为了让后面推送时不需要每次都输入账号密码）</li>
+<li>创建仓库并在设置中开启Git Pages功能<br><em>最好两者仓库的名字都相同，Github Page要求仓库名字为 [账号名].github.io，Gitee无要求但不可以以.git结尾</em><br> 例如我的github帐号名为Papayaaaaa<br> 则Github Page 仓库为名为 Papayaaaaa.github.io  Gitee仓库名为Papayaaaaa<br> Github(Pages配置在settings页面最底部，默认配置就ok) <img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-1.jpg" title="This is an image">
+ Gitee <img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-2.jpg" title="This is an image"></li>
+<li>安装Node.js，网址略，安装完成后查看nodejs版本及npm版本验证安装是否完成 <img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-3.jpg" title="This is an image"></li>
+<li>安装Hexo，在电脑中创建一个新文件夹，命名为Papayaaaaa.github.io作为博客文件夹<br> <strong><strong>看到有博客说名称和仓库名不同会有问题但是理论上不同名也应该ok的，不想麻烦的话建议还是同名</strong></strong></li>
+<li>在文件夹中打开cmd（按住Shift右键）<br> 使用npm命令安装Hexo<br> <code>npm install -g hexo-cli</code></li>
+<li>安装Git插件  cmd输入<br><code>npm install hexo-deployer-git --save</code></li>
+<li>初始化博客，cmd输入<br><code>hexo init blog</code></li>
+<li>创建一个新页面， cmd输入<br><code>hexo new &quot;My first blog&quot;</code><br> 这句命令即创建一个新的名为My first blog的页面，页面以.md文件储存在/source/_post/文件夹下，页面语言为Markdown</li>
+<li>生成静态博客页面   <code>hexo g</code>   g即generate，生成博客</li>
+<li>本地测试博客框架  <code>hexo s</code>   s即server， 可以在localhost:4000查看本地博客框架<img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-4.jpg" title="This is an image"></li>
+<li>将本地博客推送到Github/Gitee<br>修改站点根目录下的站点配置文件_config.yml，记事本或Notepad打开<br>修改最下面一行<img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-5.jpg" title="This is an image">
+文件最开头可以设置博客标题等<img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-6.jpg" title="This is an image">
+修改完保存文件，本地博客根目录下命令行<br><code>hexo clean</code><br> <code>hexo g</code><br> <code>hexo d</code>##即deploy，进行远程推送</li>
+<li>每次自己在本地写好博客都可以通过这三个命令进行页面生成与推送</li>
+<li>貌似推送到gitee需要在source文件夹下建立一个Staticfile文件否则无法识别静态网页（？不知道为啥）</li>
+</ol>
+<p><strong>遇到的一些问题：</strong><br>之前在Gitee上的仓库名称和我账号名称不一样，推送之后在Gitee上就无法显示出页面，设置_config.yml的url和root属性可以解决但设置之后Github上又显示不出来框架只显示静态页面，搞了半天也不知都为啥，最后只能删了重来大家都统一命名，猜测是命名不同会导致路径的一些变化，dbq本人真的是纯正的半桶水orz</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/" data-id="cjtto8ijh0002owdiv4r54sec" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/" data-id="cjttralt90003p4di3xm2956k" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
     </footer>
   </div>
   
@@ -787,9 +808,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/Arcpy-image-mask/" data-id="cjtto8ij70000owdioseyxtc5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/Arcpy-image-mask/" data-id="cjttralsz0000p4didvvpudbf" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Arcgis/">Arcgis</a></li></ul>
+
     </footer>
   </div>
   
@@ -823,7 +846,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/Papaya-s-First-Blog/" data-id="cjtto8ij70001owdi48kad4nt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/Papaya-s-First-Blog/" data-id="cjttralsz0001p4dini7wijy6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -868,7 +891,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/hello-world/" data-id="cjtto8ijh0003owdiq5g477o5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/hello-world/" data-id="cjttralt90004p4disn7y3d7e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -888,9 +911,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arcgis/">Arcgis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Arcgis/" style="font-size: 10px;">Arcgis</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
