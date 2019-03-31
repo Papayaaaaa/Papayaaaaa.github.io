@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/20170929-4.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/20170929-5.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/20170929-6.jpg">
-<meta property="og:updated_time" content="2019-03-29T07:56:00.153Z">
+<meta property="og:updated_time" content="2019-03-31T03:41:29.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github&#x2F;Gitee+hexo搭建博客">
 <meta name="twitter:description" content="注册Github/Gitee账号，安装Git客户端，生成并配置GitHub公钥，截图步骤略（这一步是为了让后面推送时不需要每次都输入账号密码） 创建仓库并在设置中开启Git Pages功能最好两者仓库的名字都相同，Github Page要求仓库名字为 [账号名].github.io，Gitee无要求但不可以以.git结尾 例如我的github帐号名为Papayaaaaa 则Github Page">
@@ -113,7 +113,8 @@
 <li>貌似推送到gitee需要在source文件夹下建立一个Staticfile文件否则无法识别静态网页（？不知道为啥）</li>
 </ol>
 <p><strong>遇到的一些问题：</strong><br>之前在Gitee上的仓库名称和我账号名称不一样，推送之后在Gitee上就无法显示出页面，设置_config.yml的url和root属性可以解决但设置之后Github上又显示不出来框架只显示静态页面，搞了半天也不知都为啥，最后只能删了重来大家都统一命名，猜测是命名不同会导致路径的一些变化，dbq本人真的是纯正的半桶水orz</p>
-<p><strong>PS：</strong><br>码云（Gitee）上推送后无法自动部署网站，每次推送后需要自己手动部署（自动部署需要购买VIP 99r/year），其实用Gitee本来是觉得会快一点但是好像也没有快很多的样子，</p>
+<p><strong>PS：</strong><br>码云（Gitee）上推送后无法自动部署网站，每次推送后需要自己手动部署（自动部署需要购买VIP 99r/year），其实用Gitee本来是觉得会快一点但是好像也没有快很多的样子orz.</p>
+<p><strong>PPS：</strong><br>绑定域名就按网上来就ok，但是注意直接在仓库根目录建立CNAME文件在第二次推送的时候会被覆盖掉因此需要在本地目录/source文件夹下建立CNAME文件。</p>
 
       
     </div>
