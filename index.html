@@ -62,6 +62,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-一个假程序员的追星惨案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/10/一个假程序员的追星惨案/" class="article-date">
+  <time datetime="2019-04-10T08:14:37.000Z" itemprop="datePublished">2019-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/10/一个假程序员的追星惨案/">一个假程序员的追星惨案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我再也不要随便立flag玩python了QAQ<br>起因时很久很久之前要给龙龙投一个投票，我特别没耐心so基本重复超过10次的工作基本上我就会开始上网搜代码了orz，后来发现百度盖楼对数据帮助比较大，所以在网上找（抄）了一点自动回帖代码试了下，主要参考的的代码是 <a href="http://www.opython.com/852.html" title="魔力Python » 小工具：百度贴吧自动顶贴机" target="_blank" rel="noopener">魔力Python » 小工具：百度贴吧自动顶贴机</a>不过没有用上cookie函数（我不知道是不是我的打开方式不对我用cookie登录买的小号各种不成功，理论上是可以的well一定是我这条咸鱼的问题）<br>主要使用的工具包是selenium包，可以使用pip安装<code>pip install -U selenium</code><br>PS.需要下载与电脑Chorme的版本相对应的chormedriver，<strong>版本一定要对应！！</strong><br>然后把chormedriver复制到至谷歌浏览器目录（如 C:\Program Files\Google\Chrome\Application）以及当前运行的python根目录（例如我的是D:\Anaconda3）如果不行就把谷歌浏览器目录添加到环境变量path<br>这里主要参考的是博客   <a href="https://blog.csdn.net/weixin_37185329/article/details/80493281" title="这里" target="_blank" rel="noopener">解决chromedriver executable needs to be in PATH问题</a></p>
+<p><a href="/download/tieba.rar">代码下载</a></p>
+<p>url.txt——需要盖楼的链接，可以每天修改，现在里面是4月10号的朱一龙贴吧数据楼<br>reply.txt—回复，每次回复取一条并添加随机字母后缀防止吞楼<br>tieba.py—python脚本，python版本是3.6 </p>
+<p>代码改到最后还是用了人工登录，看到有人说这叫人工干预爬虫hhhhhhh，但是确实我买的小号都不好用，人工登录可能还要方便一点，函数login()里面是自动登录首页的代码，但是我后面登录次数太多了需要验证就不太好用了所以主函数里面写的还是需要人工登录一下，这里只放主函数</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def main():</span><br><span class="line">    browser.get(<span class="string">"http://tieba.baidu.com/"</span>)</span><br><span class="line">    <span class="keyword">sleep</span>(<span class="number">120</span>)  <span class="comment">#等待人工登录</span></span><br><span class="line">    count=<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span>(count&lt;<span class="number">200</span>): <span class="comment">#预计评论的条数</span></span><br><span class="line">        <span class="keyword">for</span> url in <span class="keyword">open</span>(<span class="string">'url.txt'</span>, encoding=<span class="string">'utf-8'</span>).readlines():  <span class="comment"># 逐行读取url文件</span></span><br><span class="line">            browser.get(url)  <span class="comment"># 打开地址</span></span><br><span class="line">            <span class="keyword">sleep</span>(<span class="number">10</span>)  <span class="comment"># 避免回复过快，地址打开后等待10秒钟。</span></span><br><span class="line">            browser.execute_script(<span class="string">"window.scrollTo(0,document.body.scrollHeight)"</span>)  <span class="comment"># 滚动到页面底部</span></span><br><span class="line">            reply()  <span class="comment"># 写入回复内容并提交</span></span><br><span class="line">            <span class="keyword">sleep</span>(<span class="number">20</span>)  <span class="comment"># 等待完成提交</span></span><br><span class="line">			ActionChains(browser).key_down(Keys.CONTROL).send_keys(<span class="string">"w"</span>).key_up(Keys.CONTROL).perform()  <span class="comment"># 关闭网页</span></span><br><span class="line">			<span class="keyword">print</span>(url+<span class="string">'\n'</span>+str(count)+<span class="string">"down"</span>)</span><br><span class="line">		count+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">sleep</span>(<span class="number">300</span>)  <span class="comment">#每次回复的间隔</span></span><br></pre></td></tr></table></figure>
+<p>人工登录时间间隔我设置的是120秒（因为太快了有时候来不及接收验证码），回复时间间隔设置的是300秒，没有试过更快的，怕被封号orz，我基本上不会出现回复需要滑动验证的情况，如果出现了可以手动帮忙验证下，我懒得继续写滑动验证码了，隔一段时间看一眼就行<br>——————————————————————————<br>如果从来没有接触过python的话，可以参考这个<a href="https://blog.csdn.net/nmjuzi/article/details/79075736" title="网站" target="_blank" rel="noopener">网站</a>安装一个python，然后打开python自带的编译器IDLE(Python GUI)，从IDLE–&gt;File–&gt;Open打开python脚本，然后选择菜单Run–&gt;Run Module(当然也可以打开python脚本之后直接F5)</p>
+<p><strong>PS.</strong>  tb上面像又自动顶帖机软件卖。。。可以直接买那个，也不是特别贵，我还没买过但是我感觉别人那个做的比我这个强多了</p>
+<p>最后祝大家快乐追星~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/10/一个假程序员的追星惨案/" data-id="cjuay4c0c0004zwdiihp1u51g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Github-Gitee-hexo搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/29/Github-Gitee-hexo搭建博客/" class="article-date">
@@ -109,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/" data-id="cjttrw9g7000150dir94ikyce" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/" data-id="cjuay4bzs0000zwdiouk81hhs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
@@ -810,7 +856,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/Arcpy-image-mask/" data-id="cjttrw9g7000050dih1ptglwx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/Arcpy-image-mask/" data-id="cjuay4c020001zwdi8ka7o90u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Arcgis/">Arcgis</a></li></ul>
@@ -849,7 +895,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/Papaya-s-First-Blog/" data-id="cjttrw9gh000350dispd9qis4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/Papaya-s-First-Blog/" data-id="cjuay4c0c0005zwdi8bq400ww" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Papaya-seeds/">Papaya seeds</a></li></ul>
@@ -896,7 +942,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/28/hello-world/" data-id="cjttrw9gh000450di4xdzo7ba" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/28/hello-world/" data-id="cjuay4c020003zwdi32khkssx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -919,7 +965,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arcgis/">Arcgis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Papaya-seeds/">Papaya seeds</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arcgis/">Arcgis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Papaya-seeds/">Papaya seeds</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
     </div>
   </div>
 
@@ -929,7 +975,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Arcgis/" style="font-size: 10px;">Arcgis</a> <a href="/tags/Papaya-seeds/" style="font-size: 10px;">Papaya seeds</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a>
+      <a href="/tags/Arcgis/" style="font-size: 10px;">Arcgis</a> <a href="/tags/Papaya-seeds/" style="font-size: 10px;">Papaya seeds</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
     </div>
   </div>
 
@@ -938,7 +984,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -949,6 +995,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/04/10/一个假程序员的追星惨案/">一个假程序员的追星惨案</a>
+          </li>
         
           <li>
             <a href="/2019/03/29/Github-Gitee-hexo搭建博客/">Github/Gitee+hexo搭建博客</a>
