@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="linux,ssh,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="配置pgsql集群的时候pgsql是给系统直接生成了posgres用户的，然后安装pgpool需要配置集群内部用户互相免密码登陆，集群之前配置spark的时候是已经配置过root用户证书登录的，因此这边按照常规方法进行配置，却发现完全不生效，看debug输出也只是没有得到目标主机的回应也改了权限试了很多方法搞了快一个星期，最后是使用这个语句解决了问题12###postgres用户主目录是/var/">
+<meta name="keywords" content="linux,ssh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非root用户ssh证书登录配置不生效问题">
+<meta property="og:url" content="http://yoursite.com/2019/07/11/非root用户ssh证书登录配置不生效问题/index.html">
 <meta property="og:site_name" content="Papaya‘s blogs">
+<meta property="og:description" content="配置pgsql集群的时候pgsql是给系统直接生成了posgres用户的，然后安装pgpool需要配置集群内部用户互相免密码登陆，集群之前配置spark的时候是已经配置过root用户证书登录的，因此这边按照常规方法进行配置，却发现完全不生效，看debug输出也只是没有得到目标主机的回应也改了权限试了很多方法搞了快一个星期，最后是使用这个语句解决了问题12###postgres用户主目录是/var/">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-23T13:14:38.118Z">
+<meta property="og:updated_time" content="2019-07-11T06:08:14.462Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="非root用户ssh证书登录配置不生效问题">
+<meta name="twitter:description" content="配置pgsql集群的时候pgsql是给系统直接生成了posgres用户的，然后安装pgpool需要配置集群内部用户互相免密码登陆，集群之前配置spark的时候是已经配置过root用户证书登录的，因此这边按照常规方法进行配置，却发现完全不生效，看debug输出也只是没有得到目标主机的回应也改了权限试了很多方法搞了快一个星期，最后是使用这个语句解决了问题12###postgres用户主目录是/var/">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/11/非root用户ssh证书登录配置不生效问题/">
 
 
 
 
 
-  <title>tags | Papaya‘s blogs</title>
+  <title>非root用户ssh证书登录配置不生效问题 | Papaya‘s blogs</title>
   
 
 
@@ -257,40 +261,147 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/非root用户ssh证书登录配置不生效问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="papaya">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Papaya‘s blogs">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 11 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Arcgis/" style="font-size: 12px; color: #ccc">Arcgis</a> <a href="/tags/MySQL/" style="font-size: 12px; color: #ccc">MySQL</a> <a href="/tags/Papaya-seeds/" style="font-size: 12px; color: #ccc">Papaya seeds</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/java/" style="font-size: 30px; color: #111">java</a> <a href="/tags/linux/" style="font-size: 12px; color: #ccc">linux</a> <a href="/tags/mybatis/" style="font-size: 30px; color: #111">mybatis</a> <a href="/tags/node-js/" style="font-size: 12px; color: #ccc">node.js</a> <a href="/tags/python/" style="font-size: 12px; color: #ccc">python</a> <a href="/tags/springboot/" style="font-size: 30px; color: #111">springboot</a> <a href="/tags/ssh/" style="font-size: 12px; color: #ccc">ssh</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">非root用户ssh证书登录配置不生效问题</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-11T16:49:37+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>配置pgsql集群的时候pgsql是给系统直接生成了posgres用户的，然后安装pgpool需要配置集群内部用户互相免密码登陆，集群之前配置spark的时候是已经配置过root用户证书登录的，因此这边按照常规方法进行配置，却发现完全不生效，看debug输出也只是没有得到目标主机的回应也改了权限试了很多方法搞了快一个星期，最后是使用这个语句解决了问题<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###postgres用户主目录是/var/lib/pgsql</span></span><br><span class="line">restorecon -R -v /var/<span class="class"><span class="keyword">lib</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这个命令我去查了下是恢复SELinux的安全上下文，因为centOS是默认启用SElinux所以可能是在写的时候会发生一些安全性问题<br>希望可以帮到不管怎么配置ssh免密登录都失败的兄弟</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/ssh/" rel="tag"># ssh</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/Node.js部署静态网页/" rel="next" title="Node.js部署静态网页">
+                <i class="fa fa-chevron-left"></i> Node.js部署静态网页
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 

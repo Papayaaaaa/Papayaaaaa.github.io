@@ -269,6 +269,127 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/11/非root用户ssh证书登录配置不生效问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="papaya">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Papaya‘s blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/11/非root用户ssh证书登录配置不生效问题/" itemprop="url">非root用户ssh证书登录配置不生效问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-11T16:49:37+08:00">
+                2019-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>配置pgsql集群的时候pgsql是给系统直接生成了posgres用户的，然后安装pgpool需要配置集群内部用户互相免密码登陆，集群之前配置spark的时候是已经配置过root用户证书登录的，因此这边按照常规方法进行配置，却发现完全不生效，看debug输出也只是没有得到目标主机的回应也改了权限试了很多方法搞了快一个星期，最后是使用这个语句解决了问题<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###postgres用户主目录是/var/lib/pgsql</span></span><br><span class="line">restorecon -R -v /var/<span class="class"><span class="keyword">lib</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这个命令我去查了下是恢复SELinux的安全上下文，因为centOS是默认启用SElinux所以可能是在写的时候会发生一些安全性问题<br>希望可以帮到不管怎么配置ssh免密登录都失败的兄弟</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/07/Node.js部署静态网页/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2008,7 +2129,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2021,7 +2142,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
