@@ -382,147 +382,25 @@
 <p>配置系统权限命令<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+s <span class="meta-keyword">/sbin/</span>ifconfig &amp;<span class="variable">&amp;chmod</span> u+s <span class="meta-keyword">/usr/</span>sbin</span><br></pre></td></tr></table></figure></p>
 <p>配置pgpool配置文件，<strong>注意自己的网卡信息，建议网卡名字都改回eth0</strong><br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vim</span> /etc/pgpool-II/pgpool.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
 <p>###########加粗为需要改动的地方############<br><strong>listen_addresses = ‘*’</strong></p>
-<p>backend_hostname0 = ‘Master’</p>
-<pre><code># Host name or IP address to connect to for backend 0
-</code></pre><p>backend_port0 = 5432</p>
-<pre><code># Port number for backend 0
-</code></pre><p>backend_weight0 = 1</p>
-<pre><code># Weight for backend 0 (only in load balancing mode)
-</code></pre><p>backend_data_directory0 = <strong>‘/app/pgsql/data’</strong></p>
-<pre><code># Data directory for backend 0
-</code></pre><p>backend_flag0 = ‘ALLOW_TO_FAILOVER’</p>
-<pre><code># Controls various backend behavior
-# ALLOW_TO_FAILOVER or DISALLOW_TO_FAILOVER
-</code></pre><p><strong>backend_hostname1 = ‘Slave1’</strong><br><strong>backend_port1 = 5432</strong><br><strong>backend_weight1 = 1</strong><br><strong>backend_data_directory1 = ‘/app/pgsql/data’’</strong><br><strong>backend_flag1 = ‘ALLOW_TO_FAILOVER’</strong></p>
+<p>backend_hostname0 = ‘Master’<br>                                   # Host name or IP address to connect to for backend 0<br>backend_port0 = 5432<br>                                   # Port number for backend 0<br>backend_weight0 = 1<br>                                   # Weight for backend 0 (only in load balancing mode)<br>backend_data_directory0 = <strong>‘/app/pgsql/data’</strong><br>                                   # Data directory for backend 0<br>backend_flag0 = ‘ALLOW_TO_FAILOVER’<br>                                   # Controls various backend behavior<br>                                   # ALLOW_TO_FAILOVER or DISALLOW_TO_FAILOVER<br><strong>backend_hostname1 = ‘Slave1’</strong><br><strong>backend_port1 = 5432</strong><br><strong>backend_weight1 = 1</strong><br><strong>backend_data_directory1 = ‘/app/pgsql/data’’</strong><br><strong>backend_flag1 = ‘ALLOW_TO_FAILOVER’</strong></p>
 <p><strong>backend_hostname2= ‘Slave2’</strong><br><strong>backend_port2 = 5432</strong><br><strong>backend_weigh2 = 1</strong><br><strong>backend_data_directory2 = ‘ /app/pgsql/data’’</strong><br><strong>backend_flag2 = ‘ALLOW_TO_FAILOVER’</strong></p>
-<p><strong>enable_pool_hba = **</strong>on<strong>** </strong></p>
-<p>#——————————————————————————</p>
-<h1 id="LOAD-BALANCING-MODE"><a href="#LOAD-BALANCING-MODE" class="headerlink" title="LOAD BALANCING MODE"></a>LOAD BALANCING MODE</h1><p>#——————————————————————————<br><strong>load_balance_mode = on</strong></p>
-<p>#——————————————————————————</p>
-<h1 id="MASTER-SLAVE-MODE"><a href="#MASTER-SLAVE-MODE" class="headerlink" title="MASTER/SLAVE MODE"></a>MASTER/SLAVE MODE</h1><p>#——————————————————————————<br><strong>master_slave_mode = on</strong></p>
-<pre><code># Activate master/slave mode
-# (change requires restart)
-</code></pre><p><strong>master_slave_sub_mode = ‘stream’</strong></p>
-<h1 id="Streaming"><a href="#Streaming" class="headerlink" title="- Streaming -"></a>- Streaming -</h1><p><strong>sr_check_period = 5</strong><br><strong>sr_check_user = ‘repuser’</strong><br><strong>sr_check_password = ‘repuser’</strong><br><strong>sr_check_database = ‘postgres’</strong></p>
-<p>#——————————————————————————</p>
-<h1 id="HEALTH-CHECK-健康检查"><a href="#HEALTH-CHECK-健康检查" class="headerlink" title="HEALTH CHECK 健康检查"></a>HEALTH CHECK 健康检查</h1><p>#——————————————————————————<br>health_check_period = 10 # Health check period</p>
-<pre><code># Disabled (0) by default
-</code></pre><p>health_check_timeout = 20</p>
-<pre><code># Health check timeout
-# 0 means no timeout
-</code></pre><p><strong>health_check_user = ‘ repuser ‘</strong></p>
-<pre><code># Health check user
-</code></pre><p><strong>health_check_password = ‘ repuser ‘    #数据库密码</strong></p>
-<pre><code># Password for health check user
-</code></pre><p><strong>health_check_database = ‘postgres’</strong></p>
-<p>#必须设置，否则primary数据库down了，pgpool不知道，不能及时切换。从库流复制还在连接数据，报连接失败。</p>
-<p>#只有下次使用pgpool登录时，发现连接不上，然后报错，这时候，才知道挂了，pgpool进行切换。</p>
-<p>#主备切换的命令行配置</p>
-<p>#——————————————————————————</p>
-<h1 id="FAILOVER-AND-FAILBACK"><a href="#FAILOVER-AND-FAILBACK" class="headerlink" title="FAILOVER AND FAILBACK"></a>FAILOVER AND FAILBACK</h1><p>#——————————————————————————<br><strong>failover_command = ‘ /opt/pgpool/failover_stream.sh 192.168.1.101 ‘</strong></p>
-<h1 id="Watchdog-communication-Settings"><a href="#Watchdog-communication-Settings" class="headerlink" title="- Watchdog communication Settings -"></a>- Watchdog communication Settings -</h1><p><strong>wd_hostname = ‘Master’  #本端</strong></p>
-<pre><code># Host name or IP address of this watchdog
-# (change requires restart)
-</code></pre><p>wd_port = 9000</p>
-<pre><code># port number for watchdog service
-# (change requires restart)
-</code></pre><p>wd_priority = 1</p>
-<pre><code># priority of this watchdog in leader election
-# (change requires restart)
-</code></pre><p>wd_authkey = ‘’</p>
-<pre><code># Authentication key for watchdog communication
-# (change requires restart)
-</code></pre><p>wd_ipc_socket_dir = ‘/var/run/postgresql’</p>
-<h1 id="Virtual-IP-control-Setting"><a href="#Virtual-IP-control-Setting" class="headerlink" title="- Virtual IP control Setting -"></a>- Virtual IP control Setting -</h1><p><strong>delegate_IP = ‘ 192.168.1.110 ‘</strong></p>
-<pre><code># delegate IP address
-# If this is empty, virtual IP never bring up.
-# (change requires restart)
-</code></pre><p><strong>if_cmd_path = ‘/sbin’</strong></p>
-<pre><code># path to the directory where if_up/down_cmd 
-# (change requires restart)
-</code></pre><p><strong>if_up_cmd = ‘ifconfig eth0:0 inet $_IP_$ netmask 255.255.255.0’</strong></p>
-<pre><code># startup delegate IP command
-# (change requires restart)
-</code></pre><p><strong>if_down_cmd = ‘ip addr del $_IP_$ dev eth0’</strong></p>
-<pre><code># shutdown delegate IP command
-# (change requires restart)
-</code></pre><h1 id="–-heartbeat-mode-–"><a href="#–-heartbeat-mode-–" class="headerlink" title="– heartbeat mode –"></a>– heartbeat mode –</h1><p>wd_heartbeat_port = 9694</p>
-<pre><code># Port number for receiving heartbeat signal
-# (change requires restart)
-</code></pre><p>wd_heartbeat_keepalive = 2</p>
-<pre><code># Interval time of sending heartbeat signal (sec)
-# (change requires restart)
-</code></pre><p>wd_heartbeat_deadtime = 30</p>
-<pre><code># Deadtime interval for heartbeat signal (sec)
-# (change requires restart)
-</code></pre><p>heartbeat_destination0 =<strong> ‘Slave1’  #对端</strong></p>
-<pre><code># Host name or IP address of destination 0
-# for sending heartbeat signal.
-# (change requires restart)
-</code></pre><p>heartbeat_destination_port0 = 9694</p>
-<pre><code># Port number of destination 0 for sending
-# heartbeat signal. Usually this is the
-# same as wd_heartbeat_port.
-# (change requires restart)
-</code></pre><p>heartbeat_device0 <strong>= ‘eth0’</strong></p>
-<pre><code># Name of NIC device (such like &apos;eth0&apos;)
-# used for sending/receiving heartbeat
-# signal to/from destination 0.
-# This works only when this is not empty
-# and pgpool has root privilege.
-# (change requires restart)
-</code></pre><p><strong>heartbeat_destination1 = ‘Slave2’</strong><br><strong>heartbeat_destination_port1 = 9694</strong><br><strong>heartbeat_device1 = ‘eth0’</strong></p>
-<h1 id="Other-pgpool-Connection-Settings"><a href="#Other-pgpool-Connection-Settings" class="headerlink" title="- Other pgpool Connection Settings -"></a>- Other pgpool Connection Settings -</h1><p>other_pgpool_hostname0 =<strong> ‘Slave1’</strong></p>
-<pre><code># Host name or IP address to connect to for other pgpool 0
-# (change requires restart)
-</code></pre><p>other_pgpool_port0 =<strong> 9999</strong></p>
-<pre><code># Port number for othet pgpool 0
-# (change requires restart)
-</code></pre><p>other_wd_port0 = <strong>9000</strong></p>
-<pre><code># Port number for othet watchdog 0
-# (change requires restart)
-</code></pre><p><strong>other_pgpool_hostname1 = ‘Slave2’</strong><br><strong>other_pgpool_port1 = 9999</strong><br><strong>other_wd_port1 = 9000</strong></p>
-<p>#######################  pgpool.conf   ############################</p>
+<p><strong>enable_pool_hba = **</strong>on<strong>** </strong><br>#——————————————————————————<br># LOAD BALANCING MODE<br>#——————————————————————————<br><strong>load_balance_mode = on</strong><br>#——————————————————————————<br># MASTER/SLAVE MODE<br>#——————————————————————————<br><strong>master_slave_mode = on</strong><br>                                   # Activate master/slave mode<br>                                   # (change requires restart)<br><strong>master_slave_sub_mode = ‘stream’</strong><br># - Streaming -<br><strong>sr_check_period = 5</strong><br><strong>sr_check_user = ‘repuser’</strong><br><strong>sr_check_password = ‘repuser’</strong><br><strong>sr_check_database = ‘postgres’</strong><br>#——————————————————————————<br># HEALTH CHECK 健康检查<br>#——————————————————————————<br>health_check_period = 10 # Health check period<br>                                   # Disabled (0) by default<br>health_check_timeout = 20<br>                                   # Health check timeout<br>                                   # 0 means no timeout<br><strong>health_check_user = ‘ repuser ‘</strong><br>                                   # Health check user<br><strong>health_check_password = ‘ repuser ‘    #数据库密码</strong><br>                                   # Password for health check user<br><strong>health_check_database = ‘postgres’</strong><br>#必须设置，否则primary数据库down了，pgpool不知道，不能及时切换。从库流复制还在连接数据，报连接失败。<br>#只有下次使用pgpool登录时，发现连接不上，然后报错，这时候，才知道挂了，pgpool进行切换。<br>#主备切换的命令行配置<br>#——————————————————————————<br># FAILOVER AND FAILBACK<br>#——————————————————————————<br><strong>failover_command = ‘ /opt/pgpool/failover_stream.sh 192.168.1.101 ‘</strong></p>
+<p># - Watchdog communication Settings -<br><strong>wd_hostname = ‘Master’  #本端</strong><br>                                    # Host name or IP address of this watchdog<br>                                    # (change requires restart)<br>wd_port = 9000<br>                                    # port number for watchdog service<br>                                    # (change requires restart)<br>wd_priority = 1<br>                                                                        # priority of this watchdog in leader election<br>                                                                        # (change requires restart)</p>
+<p>wd_authkey = ‘’<br>                                    # Authentication key for watchdog communication<br>                                    # (change requires restart)</p>
+<p>wd_ipc_socket_dir = ‘/var/run/postgresql’</p>
+<p># - Virtual IP control Setting -<br><strong>delegate_IP = ‘ 192.168.1.110 ‘</strong><br>                                    # delegate IP address<br>                                    # If this is empty, virtual IP never bring up.<br>                                    # (change requires restart)<br><strong>if_cmd_path = ‘/sbin’</strong><br>                                    # path to the directory where if_up/down_cmd<br>                                    # (change requires restart)<br><strong>if_up_cmd = ‘ifconfig eth0:0 inet $_IP_$ netmask 255.255.255.0’</strong><br>                                    # startup delegate IP command<br>                                    # (change requires restart)<br><strong>if_down_cmd = ‘ip addr del $_IP_$ dev eth0’</strong><br>                                    # shutdown delegate IP command<br>                                    # (change requires restart)<br># – heartbeat mode –<br>wd_heartbeat_port = 9694<br>                                    # Port number for receiving heartbeat signal<br>                                    # (change requires restart)<br>wd_heartbeat_keepalive = 2<br>                                    # Interval time of sending heartbeat signal (sec)<br>                                    # (change requires restart)<br>wd_heartbeat_deadtime = 30<br>                                    # Deadtime interval for heartbeat signal (sec)<br>                                    # (change requires restart)<br>heartbeat_destination0 =<strong> ‘Slave1’  #对端</strong><br>                                    # Host name or IP address of destination 0<br>                                    # for sending heartbeat signal.<br>                                    # (change requires restart)<br>heartbeat_destination_port0 = 9694<br>                                    # Port number of destination 0 for sending<br>                                    # heartbeat signal. Usually this is the<br>                                    # same as wd_heartbeat_port.<br>                                    # (change requires restart)<br>heartbeat_device0 <strong>= ‘eth0’</strong><br>                                    # Name of NIC device (such like ‘eth0’)<br>                                    # used for sending/receiving heartbeat<br>                                    # signal to/from destination 0.<br>                                    # This works only when this is not empty<br>                                    # and pgpool has root privilege.<br>                                    # (change requires restart)<br><strong>heartbeat_destination1 = ‘Slave2’</strong><br><strong>heartbeat_destination_port1 = 9694</strong><br><strong>heartbeat_device1 = ‘eth0’</strong><br># - Other pgpool Connection Settings -<br>other_pgpool_hostname0 =<strong> ‘Slave1’</strong><br>                                    # Host name or IP address to connect to for other pgpool 0<br>                                    # (change requires restart)<br>other_pgpool_port0 =<strong> 9999</strong><br>                                    # Port number for othet pgpool 0<br>                                    # (change requires restart)<br>other_wd_port0 = <strong>9000</strong><br>                                    # Port number for othet watchdog 0<br>                                    # (change requires restart)<br><strong>other_pgpool_hostname1 = ‘Slave2’</strong><br><strong>other_pgpool_port1 = 9999</strong><br><strong>other_wd_port1 = 9000</strong><br>#######################  pgpool.conf   ############################</p>
 <p><strong>Slave1&amp;Slave2：</strong><br>将Master上面的白名单复制过来<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /etc/pgpool-II/pool_hba.conf  <span class="comment">#####Slave1&amp;2</span></span><br><span class="line">scp /etc/pgpool-II/pool_hba.conf root<span class="variable">@Slave2</span><span class="symbol">:/etc/pgpool-II/pool_hba</span>.conf  <span class="comment">#####Master</span></span><br></pre></td></tr></table></figure></p>
 <p>配置pcp管理工具密码进行密码加密并将加密后密码粘贴到pcp.conf文件中<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pg_md5 pwd</span><br><span class="line">vim /etc/pgpool-II/pcp.conf</span><br><span class="line">###################</span><br><span class="line">postgres:*************</span><br></pre></td></tr></table></figure></p>
 <p>配置系统权限命令<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+s <span class="meta-keyword">/sbin/</span>ifconfig &amp;<span class="variable">&amp;chmod</span> u+s <span class="meta-keyword">/usr/</span>sbin</span><br></pre></td></tr></table></figure></p>
 <p>配置pgpool配置文件，和Master上面的基本一样，但是wd_hostname和heartbeat_destination0 以及other_pgpool_hostname0需要和Master相反，这里偷懒还是采用复制过去的方式<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/pgpool-II/pgpool<span class="selector-class">.conf</span> /etc/pgpool-II/pgpool<span class="selector-class">.conf</span><span class="selector-class">.bak</span>###Slave</span><br><span class="line">###Master</span><br><span class="line">scp /etc/pgpool-II/pgpool<span class="selector-class">.conf</span> root@Slave1:/etc/pgpool-II/pgpool.conf</span><br><span class="line">vim /etc/pgpool-II/pgpool.conf###Slave</span><br></pre></td></tr></table></figure></p>
-<p>##############以Slave1为例，相对于Master的配置文件需要修改的地方<br><strong>wd_hostname = ‘Slave1’</strong></p>
-<h1 id="–-heartbeat-mode-–-1"><a href="#–-heartbeat-mode-–-1" class="headerlink" title="– heartbeat mode –"></a>– heartbeat mode –</h1><p>heartbeat_destination0 =<strong> ‘Master’</strong></p>
-<pre><code># Host name or IP address of destination 0
-# for sending heartbeat signal.
-# (change requires restart)
-</code></pre><p>heartbeat_destination_port0 = 9694</p>
-<pre><code># Port number of destination 0 for sending
-# heartbeat signal. Usually this is the
-# same as wd_heartbeat_port.
-# (change requires restart)
-</code></pre><p>heartbeat_device0 = ‘eth0’</p>
-<pre><code># Name of NIC device (such like &apos;eth0&apos;)
-# used for sending/receiving heartbeat
-# signal to/from destination 0.
-# This works only when this is not empty
-# and pgpool has root privilege.
-# (change requires restart)
-</code></pre><p>heartbeat_destination1 =<strong> ‘Slave2’</strong><br>heartbeat_destination_port1 = 9694<br>heartbeat_device1 = ‘eth0’</p>
-<h1 id="Other-pgpool-Connection-Settings-1"><a href="#Other-pgpool-Connection-Settings-1" class="headerlink" title="- Other pgpool Connection Settings -"></a>- Other pgpool Connection Settings -</h1><p>other_pgpool_hostname0 =<strong> ‘Master’</strong></p>
-<pre><code># Host name or IP address to connect to for other pgpool 0
-# (change requires restart)
-</code></pre><p>other_pgpool_port0 = 9999</p>
-<pre><code># Port number for othet pgpool 0
-# (change requires restart)
-</code></pre><p>other_wd_port0 = 9000</p>
-<pre><code># Port number for othet watchdog 0
-# (change requires restart)
-</code></pre><p>other_pgpool_hostname1 =<strong> ‘Slave2’</strong><br>other_pgpool_port1 = 9999<br>other_wd_port1 = 9000</p>
-<p>#######################  pgpool.conf   ############################<br>所有节点上配置failover_stream.sh文件<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /<span class="keyword">opt</span>/pgpool &amp;&amp;chown postgre<span class="variable">s:postgres</span> /<span class="keyword">opt</span>/pgpool</span><br><span class="line"><span class="keyword">cd</span> /<span class="keyword">opt</span>/pgpool</span><br><span class="line"><span class="keyword">vim</span> failover_stream.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure></p>
+<p>##############以Slave1为例，相对于Master的配置文件需要修改的地方##############<br><strong>wd_hostname = ‘Slave1’</strong><br># – heartbeat mode –<br>heartbeat_destination0 =<strong> ‘Master’</strong><br>                                    # Host name or IP address of destination 0<br>                                    # for sending heartbeat signal.<br>                                    # (change requires restart)<br>heartbeat_destination_port0 = 9694<br>                                    # Port number of destination 0 for sending<br>                                    # heartbeat signal. Usually this is the<br>                                    # same as wd_heartbeat_port.<br>                                    # (change requires restart)<br>heartbeat_device0 = ‘eth0’<br>                                    # Name of NIC device (such like ‘eth0’)<br>                                    # used for sending/receiving heartbeat<br>                                    # signal to/from destination 0.<br>                                    # This works only when this is not empty<br>                                    # and pgpool has root privilege.<br>                                    # (change requires restart)</p>
+<p>heartbeat_destination1 =<strong> ‘Slave2’</strong><br>heartbeat_destination_port1 = 9694<br>heartbeat_device1 = ‘eth0’<br># - Other pgpool Connection Settings -</p>
+<p>other_pgpool_hostname0 =<strong> ‘Master’</strong><br>                                    # Host name or IP address to connect to for other pgpool 0<br>                                    # (change requires restart)<br>other_pgpool_port0 = 9999<br>                                    # Port number for othet pgpool 0<br>                                    # (change requires restart)<br>other_wd_port0 = 9000<br>                                    # Port number for othet watchdog 0<br>                                    # (change requires restart)<br>other_pgpool_hostname1 =<strong> ‘Slave2’</strong><br>other_pgpool_port1 = 9999<br>other_wd_port1 = 9000<br>#######################  pgpool.conf   ############################<br>所有节点上配置failover_stream.sh文件<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /<span class="keyword">opt</span>/pgpool &amp;&amp;chown postgre<span class="variable">s:postgres</span> /<span class="keyword">opt</span>/pgpool</span><br><span class="line"><span class="keyword">cd</span> /<span class="keyword">opt</span>/pgpool</span><br><span class="line"><span class="keyword">vim</span> failover_stream.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure></p>
 <p>这里配置是101-&gt;102&amp;102&gt;103这样循环，不知道这样配置对不对，后面再具体研究下这个切换的细节<br><del># Failover command for streaming replication.</del><br><del># This script assumes that DB node 0 is primary, and 1 is standby.</del><br><del>#</del><br><del># If standby goes down, do nothing. If primary goes down, create a</del><br><del># trigger file so that standby takes over primary node.</del><br><del>#</del><br><del># Arguments: $1: failed node id. $2: new master hostname. $3: path to</del><br><del># trigger file.</del><br><del>failed_node=192.168.1.101</del><br><del>new_master=192.168.1.102</del><br><del>trigger_file=</del><del>$3</del><br><del># Do nothing if standby goes down.</del><br><del>if</del>~~ [ <del>~~$failed_node</del>~~ = 1 ]; <del>~~then</del><br><del>exit</del>~~ 0;~~<br><del>fi</del><br><del># Create the trigger file.</del><br><del>/usr/bin/ssh -T ~</del>~$new_master<del>~~ /bin/touch ~</del>~$trigger_file~~<br><del>exit</del>~~ 0;~~</p>
-<p>####################### failover_stream.sh   ############################</p>
-<p>#!/bin/bash  -x<br>falling_node=$1          # %d<br>old_primary=192.168.1.101           # %P<br>new_primary=192.168.1.102         # %H<br>pgdata=/app/pgsql/data/                # %R</p>
+<p>####################### failover_stream.sh   ############################<br>#!/bin/bash  -x<br>falling_node=$1          # %d<br>old_primary=192.168.1.101           # %P<br>new_primary=192.168.1.102         # %H<br>pgdata=/app/pgsql/data/                # %R</p>
 <p>pghome=/usr/pgsql-9.5<br>log=/opt/pgpool/failover.log</p>
 <p>date &gt;&gt; $log<br>echo “failed_node_id=$falling_node new_primary=$new_primary” &gt;&gt; $log</p>
-<p>if [ $falling_node = $old_primary ]; then<br>    if [ $UID -eq 0 ]<br>    then<br>        su postgres -c “ssh -T postgres@$new_primary $pghome/bin/pg_ctl promote -D $pgdata”<br>    else<br>        ssh -T postgres@$new_primary $pghome/bin/pg_ctl promote -D $pgdata<br>    fi<br>    exit 0;<br>fi;<br>exit 0;</p>
-<p>####################### failover_stream.sh   ############################</p>
+<p>if [ $falling_node = $old_primary ]; then<br>    if [ $UID -eq 0 ]<br>    then<br>        su postgres -c “ssh -T postgres@$new_primary $pghome/bin/pg_ctl promote -D $pgdata”<br>    else<br>        ssh -T postgres@$new_primary $pghome/bin/pg_ctl promote -D $pgdata<br>    fi<br>    exit 0;<br>fi;<br>exit 0;<br>####################### failover_stream.sh   ############################</p>
 <p>保存退出，设置权限，并创建日志文件<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chown postgres:postgres failover_stream.<span class="keyword">sh</span> &amp;&amp;chmod 777 failover_stream.<span class="keyword">sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">mkdir</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/pgpool</span><br><span class="line">chown -R postgres.postgres /<span class="keyword">var</span>/<span class="keyword">log</span>/pgpool</span><br></pre></td></tr></table></figure></p>
 <p>在master上创建repusr账号:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su postgres</span><br><span class="line">psql</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> repuser <span class="keyword">with</span> <span class="keyword">password</span> <span class="string">'repuser'</span>;</span><br></pre></td></tr></table></figure></p>
 <p>开启防火墙<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=5432/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=9999/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=9000/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=9898/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=9694/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
