@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://uploader.shimo.im/f/PeA1QiJ7gGEXJDeX.png!thumbnail">
 <meta property="og:image" content="https://uploader.shimo.im/f/dl7R6odTkrgyNPNe.jpg!thumbnail">
-<meta property="og:updated_time" content="2019-07-15T08:06:22.542Z">
+<meta property="og:updated_time" content="2019-07-25T12:57:35.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="集群PostgreSQL&amp;pgpool安装实现集群搭建">
 <meta name="twitter:description" content="安装参考bolg https://www.jianshu.com/p/41d857a5d743 有部分修改补充 集群使用内网连接,Master和Slave之间设置了ssh证书互联（过程略）Master:192.168.1.101  pgpool，pgsqlSlave1: 192.168.1.102  pgpool，pgsqlSlave2: 192.168.1.103  pgpool，pgsqlSl">
@@ -344,7 +344,7 @@
 
       
         <p>安装参考bolg <a href="https://www.jianshu.com/p/41d857a5d743" target="_blank" rel="noopener">https://www.jianshu.com/p/41d857a5d743</a> 有部分修改补充</p>
-<p>集群使用内网连接,Master和Slave之间设置了ssh证书互联（过程略）<br>Master:192.168.1.101  pgpool，pgsql<br>Slave1: 192.168.1.102  pgpool，pgsql<br>Slave2: 192.168.1.103  pgpool，pgsql<br>Slave3: 192.168.1.104  pgsql<br>Slave4: 192.168.1.105  pgsql<br><img src="https://uploader.shimo.im/f/PeA1QiJ7gGEXJDeX.png!thumbnail" alt="图片"></p>
+<p>集群使用内网连接,Master和Slave之间设置了ssh证书互联（过程略）<br>Master:192.168.1.101  pgpool，pgsql<br>Slave1: 192.168.1.102  pgpool，pgsql<br>Slave2: 192.168.1.103  pgpool，pgsql<br>Slave3: 192.168.1.104  pgsql<br>Slave4: 192.168.1.105  pgsql<br><img src="https://uploader.shimo.im/f/PeA1QiJ7gGEXJDeX.png!thumbnail" alt="图片"><br>——————————————————2019/07/25更新————————————————————<br><strong>博主已经放弃了动不动就挂掉的pgpool3.6，只奉劝各位放弃bug众多的pgpool3.6，换成4.0，详见下下篇博客</strong></p>
 <h1 id="PostgreSQL安装"><a href="#PostgreSQL安装" class="headerlink" title="PostgreSQL安装"></a>PostgreSQL安装</h1><h2 id="1-下载安装包并安装"><a href="#1-下载安装包并安装" class="headerlink" title="1 下载安装包并安装"></a>1 下载安装包并安装</h2><p><a href="https://yum.postgresql.org/rpmchart.php" target="_blank" rel="noopener">https://yum.postgresql.org/rpmchart.php</a><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/</span><br><span class="line">yum install -y postgresql95-libs-<span class="number">9.5</span>.<span class="number">18</span>-<span class="number">1</span>PGDG<span class="selector-class">.rhel7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></span><br><span class="line">yum install -y postgresql95-<span class="number">9.5</span>.<span class="number">18</span>-<span class="number">1</span>PGDG<span class="selector-class">.rhel7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></span><br><span class="line">yum install -y postgresql95-server-<span class="number">9.5</span>.<span class="number">18</span>-<span class="number">1</span>PGDG<span class="selector-class">.rhel7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></span><br><span class="line">yum install -y postgresql95-contrib-<span class="number">9.5</span>.<span class="number">18</span>-<span class="number">1</span>PGDG<span class="selector-class">.rhel7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="2-初始化数据"><a href="#2-初始化数据" class="headerlink" title="2 初始化数据"></a>2 初始化数据</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>pgsql-<span class="number">9.5</span><span class="regexp">/bin/</span>postgresql95-setup initdb</span><br></pre></td></tr></table></figure>
 <p>安装后，可执行文件在 /usr/pgsql-9.5/bin/，数据和配置文件在 /var/lib/pgsql/9.5/data/<br>启动服务</p>
@@ -542,7 +542,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

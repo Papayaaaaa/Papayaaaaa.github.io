@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="PostgreSQL,pgpool,数据库,">
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Papaya‘s blogs">
-<meta property="og:url" content="http://yoursite.com/tags/PostGIS/index.html">
+<meta name="description" content="pgpool3.6用下来发现有很多bug，其中有一个非常无语的bug就是端口绑定之后会没有办法释放，第二次使用的时候就会一直显示说socket地址被占用了，每次都去杀进程不是什么好方法，最后不小心看到pgpool4.0.2的release note发现里面讲到这就是老版本的一个bug并且4.0版本修复了这个bug，这是原文：所以最好的解决方法就是安装4.0.2，建议各位想用pgpool的兄弟姐妹就">
+<meta name="keywords" content="PostgreSQL,pgpool,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pgpool3.6版本“Adress already in use”错误解决方案">
+<meta property="og:url" content="http://yoursite.com/2019/07/25/pgpool3.6版本“Adress already in use”错误解决方案/index.html">
 <meta property="og:site_name" content="Papaya‘s blogs">
+<meta property="og:description" content="pgpool3.6用下来发现有很多bug，其中有一个非常无语的bug就是端口绑定之后会没有办法释放，第二次使用的时候就会一直显示说socket地址被占用了，每次都去杀进程不是什么好方法，最后不小心看到pgpool4.0.2的release note发现里面讲到这就是老版本的一个bug并且4.0版本修复了这个bug，这是原文：所以最好的解决方法就是安装4.0.2，建议各位想用pgpool的兄弟姐妹就">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://uploader.shimo.im/f/f0rJqQAvu4gPlwpj.png!thumbnail">
+<meta property="og:updated_time" content="2019-07-25T12:58:49.254Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Papaya‘s blogs">
+<meta name="twitter:title" content="pgpool3.6版本“Adress already in use”错误解决方案">
+<meta name="twitter:description" content="pgpool3.6用下来发现有很多bug，其中有一个非常无语的bug就是端口绑定之后会没有办法释放，第二次使用的时候就会一直显示说socket地址被占用了，每次都去杀进程不是什么好方法，最后不小心看到pgpool4.0.2的release note发现里面讲到这就是老版本的一个bug并且4.0版本修复了这个bug，这是原文：所以最好的解决方法就是安装4.0.2，建议各位想用pgpool的兄弟姐妹就">
+<meta name="twitter:image" content="https://uploader.shimo.im/f/f0rJqQAvu4gPlwpj.png!thumbnail">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/PostGIS/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/25/pgpool3.6版本“Adress already in use”错误解决方案/">
 
 
 
 
 
-  <title>标签: PostGIS | Papaya‘s blogs</title>
+  <title>pgpool3.6版本“Adress already in use”错误解决方案 | Papaya‘s blogs</title>
   
 
 
@@ -140,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -254,52 +261,153 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>PostGIS<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/pgpool3.6版本“Adress already in use”错误解决方案/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="papaya">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Papaya‘s blogs">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/07/25/PostGIS安装及简单使用/" itemprop="url">
-              
-                <span itemprop="name">PostGIS安装及简单使用</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">pgpool3.6版本“Adress already in use”错误解决方案</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-25T20:28:11+08:00" content="2019-07-25">
-          07-25
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T20:58:33+08:00">
+                2019-07-25
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>pgpool3.6用下来发现有很多bug，其中有一个非常无语的bug就是端口绑定之后会没有办法释放，第二次使用的时候就会一直显示说socket地址被占用了，每次都去杀进程不是什么好方法，最后不小心看到pgpool4.0.2的release note发现里面讲到这就是老版本的一个bug并且4.0版本修复了这个bug，这是原文：<br><img src="https://uploader.shimo.im/f/f0rJqQAvu4gPlwpj.png!thumbnail" alt="图片"><br>所以最好的解决方法就是安装4.0.2，建议各位想用pgpool的兄弟姐妹就直接安装4.0就可以了，抛弃bug众多的3.6把，言尽于此<br>记得先把conf文件都下下来备份，在/etc/pgpool-II里面<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum remove pgpool-II-pg95-3.6.0-1pgdg.rhel7.x86_64</span><br><span class="line">yum <span class="keyword">install</span> <span class="keyword">http</span>://www.pgpool.net/yum/rpms/<span class="number">4.0</span>/redhat/rhel<span class="number">-7</span>-x86_64/pgpool-II-<span class="keyword">release</span><span class="number">-4.0</span><span class="number">-1.</span>noarch.rpm</span><br><span class="line">yum <span class="keyword">install</span> pgpool-II-pg96</span><br><span class="line">yum <span class="keyword">install</span> pgpool-II-pg96-debuginfo</span><br><span class="line">yum <span class="keyword">install</span> pgpool-II-pg96-devel</span><br><span class="line">yum <span class="keyword">install</span> pgpool-II-pg96-extensions</span><br><span class="line">systemctl <span class="keyword">enable</span> pgpool.service</span><br><span class="line">systemctl <span class="keyword">start</span> pgpool.service </span><br><span class="line">systemctl <span class="keyword">stop</span> pgpool.service</span><br></pre></td></tr></table></figure></p>
+<p>启动后停止输出info<br>2019-07-24 11:16:59: pid 18325: WARNING:  fail_over_on_backend_error is changed to failover_on_backend_error<br>2019-07-24 11:16:59: pid 18325: DETAIL:  setting failover_on_backend_error has no effect<br>2019-07-24 11:16:59: pid 18325: HINT:  use failover_on_backend_error instead<br>修改一下pgpool.conf<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">failover_on_backend_error</span>=<span class="literal">off</span></span><br></pre></td></tr></table></figure></p>
+<p>这里之前默认设置的是on，然后只要数据库一报错整个节点都挂掉ORZ，总算知道主节点总是down掉的原因了</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PostgreSQL/" rel="tag"># PostgreSQL</a>
+          
+            <a href="/tags/pgpool/" rel="tag"># pgpool</a>
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/25/PostGIS安装及简单使用/" rel="next" title="PostGIS安装及简单使用">
+                <i class="fa fa-chevron-left"></i> PostGIS安装及简单使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -307,6 +415,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -528,6 +640,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
