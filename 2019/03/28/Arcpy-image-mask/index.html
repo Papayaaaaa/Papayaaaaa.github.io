@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="可用Arcgis自带python，Arcgis10.2支持Python2.7但是需要编码问题（好吧我在讲废话）ps.其实这是一个hexo博客测试啦  代码123456789101112131415161718192021#coding=utf-8import arcpyimport osimport rearcpy.CheckOutExtension(&quot;spatial&quot;)arcpy.env.wor">
+<meta name="description" content="可用Arcgis自带python，Arcgis10.2支持Python2.7不知道为什么好像网上用Arcpy的人不多不过也可以直接用Arcgis内置的批处理，是一样的  代码123456789101112131415161718192021#coding=utf-8import arcpyimport osimport rearcpy.CheckOutExtension(&quot;spatial&quot;)arc">
 <meta name="keywords" content="Arcgis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Arcpy影像切割">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/Arcpy-image-mask/index.html">
 <meta property="og:site_name" content="Papaya‘s blogs">
-<meta property="og:description" content="可用Arcgis自带python，Arcgis10.2支持Python2.7但是需要编码问题（好吧我在讲废话）ps.其实这是一个hexo博客测试啦  代码123456789101112131415161718192021#coding=utf-8import arcpyimport osimport rearcpy.CheckOutExtension(&quot;spatial&quot;)arcpy.env.wor">
+<meta property="og:description" content="可用Arcgis自带python，Arcgis10.2支持Python2.7不知道为什么好像网上用Arcpy的人不多不过也可以直接用Arcgis内置的批处理，是一样的  代码123456789101112131415161718192021#coding=utf-8import arcpyimport osimport rearcpy.CheckOutExtension(&quot;spatial&quot;)arc">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-29T07:19:41.398Z">
+<meta property="og:updated_time" content="2019-08-31T08:23:22.601Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Arcpy影像切割">
-<meta name="twitter:description" content="可用Arcgis自带python，Arcgis10.2支持Python2.7但是需要编码问题（好吧我在讲废话）ps.其实这是一个hexo博客测试啦  代码123456789101112131415161718192021#coding=utf-8import arcpyimport osimport rearcpy.CheckOutExtension(&quot;spatial&quot;)arcpy.env.wor">
+<meta name="twitter:description" content="可用Arcgis自带python，Arcgis10.2支持Python2.7不知道为什么好像网上用Arcpy的人不多不过也可以直接用Arcgis内置的批处理，是一样的  代码123456789101112131415161718192021#coding=utf-8import arcpyimport osimport rearcpy.CheckOutExtension(&quot;spatial&quot;)arc">
 
 
 
@@ -340,7 +340,7 @@
       
 
       
-        <p>可用Arcgis自带python，Arcgis10.2支持Python2.7<br>但是需要编码问题（好吧我在讲废话）<br><em>ps.其实这是一个hexo博客测试啦</em></p>
+        <p>可用Arcgis自带python，Arcgis10.2支持Python2.7<br>不知道为什么好像网上用Arcpy的人不多<br>不过也可以直接用Arcgis内置的批处理，是一样的</p>
 <hr>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><div bgcolor="white"><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> arcpy</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">arcpy.CheckOutExtension(<span class="string">"spatial"</span>)</span><br><span class="line">arcpy.env.workspace=<span class="string">u"G:\\**\\TIFF"</span></span><br><span class="line">arcpy.gp.overwriteOutput=<span class="number">1</span></span><br><span class="line">rasters=arcpy.ListRasters(<span class="string">"*"</span>,<span class="string">"tif"</span>)</span><br><span class="line">mask=<span class="string">u"G:\\**\\shapefile.shp"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> raster <span class="keyword">in</span> rasters:</span><br><span class="line">    print(raster)</span><br><span class="line">    out=<span class="string">u"G:\\**\\"</span>+raster;</span><br><span class="line">    arcpy.gp.ExtractByMask_sa(raster,mask,out)</span><br><span class="line">    os.remove(out+<span class="string">".aux.xml"</span>)</span><br><span class="line">    os.remove(out+<span class="string">".xml"</span>)</span><br><span class="line">    os.remove(out.split(<span class="string">'.'</span>)[<span class="number">0</span>]+<span class="string">"tfw"</span>)</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">print(<span class="string">"All done"</span>)</span><br></pre></td></tr></table></figure><br><br></div>
 
@@ -1124,7 +1124,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
