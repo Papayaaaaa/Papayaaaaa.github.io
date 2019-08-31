@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="node.js,">
+  <meta name="keywords" content="springboot2,tomcat,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Node.js真的是hin牛逼，基本上是傻瓜式操作了，而且比tomcat什么的要方便多了这个的起源是准备给明天过生日的的基友做一个生日快乐的网站，奈何自己的前端水平着实有点烂，就是属于那种完全扶不上墙的烂，所以准备github上面抄一个代码，搞简单一点好了  安装node.js 1yum install nodejs  创建网页目录 1mkdir /node/www/  在目录下写一个server">
-<meta name="keywords" content="node.js">
+<meta name="description" content="springboot打包成war包之后部署在外部tomcat上访问出现404问题，并且在tomcat管理界面中显示项目无法启动因为这个问题搞了快一天，最后发现是log4j2包冲突的问题，解决方法是在springboot-starter和springboot-start-web支持里面排除掉logger但是这样之后日志文件就全部写到了tomcat目录底下的logs里面，并且使用外部tomcat之后a">
+<meta name="keywords" content="springboot2,tomcat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Node.js部署静态网页">
-<meta property="og:url" content="http://yoursite.com/2019/07/07/Node.js部署静态网页/index.html">
+<meta property="og:title" content="springboot2部署到外部tomcat出现404问题解决方案">
+<meta property="og:url" content="http://yoursite.com/2019/08/31/springboot2部署到外部tomcat出现404问题解决方案/index.html">
 <meta property="og:site_name" content="Papaya‘s blogs">
-<meta property="og:description" content="Node.js真的是hin牛逼，基本上是傻瓜式操作了，而且比tomcat什么的要方便多了这个的起源是准备给明天过生日的的基友做一个生日快乐的网站，奈何自己的前端水平着实有点烂，就是属于那种完全扶不上墙的烂，所以准备github上面抄一个代码，搞简单一点好了  安装node.js 1yum install nodejs  创建网页目录 1mkdir /node/www/  在目录下写一个server">
+<meta property="og:description" content="springboot打包成war包之后部署在外部tomcat上访问出现404问题，并且在tomcat管理界面中显示项目无法启动因为这个问题搞了快一天，最后发现是log4j2包冲突的问题，解决方法是在springboot-starter和springboot-start-web支持里面排除掉logger但是这样之后日志文件就全部写到了tomcat目录底下的logs里面，并且使用外部tomcat之后a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-07T08:49:58.448Z">
+<meta property="og:updated_time" content="2019-08-31T07:35:17.508Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Node.js部署静态网页">
-<meta name="twitter:description" content="Node.js真的是hin牛逼，基本上是傻瓜式操作了，而且比tomcat什么的要方便多了这个的起源是准备给明天过生日的的基友做一个生日快乐的网站，奈何自己的前端水平着实有点烂，就是属于那种完全扶不上墙的烂，所以准备github上面抄一个代码，搞简单一点好了  安装node.js 1yum install nodejs  创建网页目录 1mkdir /node/www/  在目录下写一个server">
+<meta name="twitter:title" content="springboot2部署到外部tomcat出现404问题解决方案">
+<meta name="twitter:description" content="springboot打包成war包之后部署在外部tomcat上访问出现404问题，并且在tomcat管理界面中显示项目无法启动因为这个问题搞了快一天，最后发现是log4j2包冲突的问题，解决方法是在springboot-starter和springboot-start-web支持里面排除掉logger但是这样之后日志文件就全部写到了tomcat目录底下的logs里面，并且使用外部tomcat之后a">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/07/Node.js部署静态网页/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/31/springboot2部署到外部tomcat出现404问题解决方案/">
 
 
 
 
 
-  <title>Node.js部署静态网页 | Papaya‘s blogs</title>
+  <title>springboot2部署到外部tomcat出现404问题解决方案 | Papaya‘s blogs</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/07/Node.js部署静态网页/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/springboot2部署到外部tomcat出现404问题解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="papaya">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Node.js部署静态网页</h1>
+          <h1 class="post-title" itemprop="name headline">springboot2部署到外部tomcat出现404问题解决方案</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T16:49:37+08:00">
-                2019-07-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T16:49:37+08:00">
+                2019-08-31
               </time>
             
 
@@ -340,38 +340,8 @@
       
 
       
-        <p>Node.js真的是hin牛逼，基本上是傻瓜式操作了，而且比tomcat什么的要方便多了<br>这个的起源是准备给明天过生日的的基友做一个生日快乐的网站，奈何自己的前端水平着实有点烂，就是属于那种完全扶不上墙的烂，所以准备github上面抄一个代码，搞简单一点好了</p>
-<ol>
-<li><p>安装node.js</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> nodejs</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建网页目录</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /<span class="keyword">node</span><span class="title">/www</span>/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在目录下写一个server.js，这里监听的端口是9999，大家也可以换成自己的</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#######这是我在网上抄的一份代码<span class="keyword">let</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">let</span> url = <span class="built_in">require</span>(<span class="string">'url'</span>);</span><br><span class="line"><span class="keyword">let</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</span><br><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> server = http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> pathname = url.parse(req.url).pathname; <span class="comment">//获取url请求的路径 (/index.html)</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"file:"</span>+pathname.substring(<span class="number">1</span>)) <span class="comment">//去掉“/”</span></span><br><span class="line">  fs.readFile(pathname.substring(<span class="number">1</span>), <span class="function"><span class="keyword">function</span> (<span class="params">err,data</span>) </span>&#123; <span class="comment">//展示html文件</span></span><br><span class="line">      <span class="keyword">if</span>(err)&#123;</span><br><span class="line">          res.writeHead(<span class="number">404</span>,&#123;</span><br><span class="line">            <span class="string">'Content-Type'</span>:<span class="string">'text/html'</span></span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        res.writeHead(<span class="number">200</span>,&#123;</span><br><span class="line">          <span class="string">'Content-Type'</span>:<span class="string">'text/html'</span></span><br><span class="line">        &#125;);</span><br><span class="line">        res.write(data.toString());</span><br><span class="line">      &#125;</span><br><span class="line">      res.end();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(<span class="number">9999</span>, <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Server Running on port 9999...'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>这里遇到的一个问题是，开启了端口也无法访问，原因是server.listen(9999)这个函数第二个参数指定了本地localhost地址，于是只能本机访问了。</p>
-<ol start="3">
-<li><p>防火墙打开9999端口</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent <span class="attribute">--add-port</span>=9999/tcp</span><br><span class="line">systemctl restart firewalld.service</span><br><span class="line"><span class="comment">#或者这个也行</span></span><br><span class="line">firewall -cmd --reload</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>放上自己的静态网页index.js</p>
-</li>
-<li><p>在对应目录下运行node server</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">node</span> <span class="title">server</span>.js</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这种运行方式人走了就没办法继续访问了，因此需要下载pm2工具管理node服务</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g pm2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>pm2开启服务并监控</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 <span class="built_in">start</span> server.js <span class="comment">--watch</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>pm2关闭服务</p>
-<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 <span class="keyword">stop</span> <span class="built_in">server</span>.js</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <p>springboot打包成war包之后部署在外部tomcat上访问出现404问题，并且在tomcat管理界面中显示项目无法启动<br>因为这个问题搞了快一天，最后发现是log4j2包冲突的问题，解决方法是在springboot-starter和springboot-start-web支持里面排除掉logger<br>但是这样之后日志文件就全部写到了tomcat目录底下的logs里面，并且使用外部tomcat之后application.properties里面的端口和映射路径设置失效，需要在server.xml里面配置<br>pom.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-logging-juli<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.23<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>——————————————————————————————分割线———————————————————————————————<br>PS.后面放到服务器上面的时候很无语，服务器上面的版本是jdk1.7.0，springboot2不支持jdk1.7所以只能又换成1.×的版本。<br>pps.1.×的版本和2.×的版本application.properties里面的severlet-path的名字有一点变化，springboot1.5.4.RELEASE里面是server.servlet-path=/；springboot2.1.3.RELEASE里面是server.servlet.context-path</p>
 
       
     </div>
@@ -389,7 +359,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/node-js/" rel="tag"># node.js</a>
+            <a href="/tags/springboot2/" rel="tag"># springboot2</a>
+          
+            <a href="/tags/tomcat/" rel="tag"># tomcat</a>
           
         </div>
       
@@ -402,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/27/Springboot+Mybatis+MySQL/" rel="next" title="Springboot+MyBatis+MySQL">
-                <i class="fa fa-chevron-left"></i> Springboot+MyBatis+MySQL
+              <a href="/2019/07/25/pgpool3.6版本“Adress already in use”错误解决方案/" rel="next" title="pgpool3.6版本" adress already in use"错误解决方案">
+                <i class="fa fa-chevron-left"></i> pgpool3.6版本"Adress already in use"错误解决方案
               </a>
             
           </div>
@@ -411,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/11/非root用户ssh证书登录配置不生效问题/" rel="prev" title="非root用户ssh证书登录配置不生效问题">
-                非root用户ssh证书登录配置不生效问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
