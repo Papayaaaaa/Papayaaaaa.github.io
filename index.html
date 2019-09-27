@@ -269,6 +269,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/27/《深入理解JVM》读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="papaya">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Papaya‘s blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/27/《深入理解JVM》读书笔记/" itemprop="url">《深入理解JVM》读书笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-27T22:05:55+08:00">
+                2019-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前面的先欠着</p>
+<h1 id="Charpter-8-虚拟机字节码执行引擎"><a href="#Charpter-8-虚拟机字节码执行引擎" class="headerlink" title="Charpter 8 虚拟机字节码执行引擎"></a>Charpter 8 虚拟机字节码执行引擎</h1><h2 id="分派"><a href="#分派" class="headerlink" title="分派"></a>分派</h2><p>编译器在同一个类底下有多个重名方法的时候是通过变量的<strong>静态类型</strong>来确定使用哪个版本的方法<br>比如，如果 Human man=new Man，那么man的静态类型依然是Human，选择的依然是参数为Human的版本，这种属于<strong>静态分派，静态分派是在编译时期进行的</strong><br>但是如果说是同名方法在不同类中的继承和重载，invokevirtual指令会从子类往父类查找有没有与常量中描述符和简单名称都相符的方法，如果有，那么就在运行期把常量池中的类方法符号引用解析到不同的的直接引用（复习一下，符号引用就是java在类加载的时候存在常量池中的一些类的基本信息，比如名称等信息，但是与实际生成的内存无关，直接引用就是指向已经生成的对象的内存所在地的指针或者句柄，详见7.3.4），这种就是<strong>动态分派，动态分派在运行期进行</strong><br>个人觉得可以这么理解，静态分派是用来确定执行哪一个方法的（包括方法的名称和参数的确定）动态分派是来确定由谁（也就是方法的接收者）来执行这个方法<br>JAVA是<strong>静态多分派，动态单分派</strong>的语言，实现动态分派的方法主要是<strong>虚方法表</strong></p>
+<h2 id="JVM动态语言支持"><a href="#JVM动态语言支持" class="headerlink" title="JVM动态语言支持"></a>JVM动态语言支持</h2><p>主要是通过invoke包，即运行期期间才确定目标方法的接收者（即可以实现类似于python在运行期才知道要运行哪一个实例）<br>MethodHandler的invoke和java Reflection的invoke的区别主要在于invoke是对java字节码命令调用的模拟，但是个人觉得功能和使用上没有太大的区别，一般使用Reflection多一些<br>java字节码指令：<br>invokestatic：静态方法<br>invokespecial：构造，私有，父类</p>
+<p>invokevirtual：所有虚方法（除了final）<br>invokeinterface：接口方法，运行时再确定接口对象<br>invokedynamic：现在运行时动态解析出调用点限定符所引用的方法，然后再进行执行，这个分派逻辑由用户控制，前面四个由虚拟机控制</p>
+<h1 id="Charpter-9-类加载案例"><a href="#Charpter-9-类加载案例" class="headerlink" title="Charpter 9 类加载案例"></a>Charpter 9 类加载案例</h1><h2 id="JAVA动态代理"><a href="#JAVA动态代理" class="headerlink" title="JAVA动态代理"></a>JAVA动态代理</h2><p>JAVA web jsp编译器，AOP框架，动态代理技术均使用到了<strong>字节码生成</strong>技术<br>代理分为静态代理和动态代理，静态代理是通过<strong>代理类使用一个指向委托类</strong>的对象指针来进行工作的，动态代理是通过增加一个中介类，通过委托类调用中介类，通过中介类调用代理类，动态代理可以简单来理解为委托类和代理类之间的完全解耦合，并且可以隐藏委托类的实现细节，并且代理类是通过中介类在运行的时候现场生成的，也就是需要用到字节码生成技术<br>动态代理&amp;静态代理参考<a href="https://juejin.im/post/5ad3e6b36fb9a028ba1fee6a" target="_blank" rel="noopener">https://juejin.im/post/5ad3e6b36fb9a028ba1fee6a</a><br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class DynamicProxy implements InvocationHandler &#123; </span><br><span class="line">    <span class="comment">//obj为委托类对象，对DynamicProxy的任何调用都会转化为invoke的调用; </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">Object</span> obj; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> DynamicProxy(<span class="keyword">Object</span> obj) &#123;</span><br><span class="line">        <span class="keyword">this</span>.obj = obj;</span><br><span class="line">    &#125; </span><br><span class="line">    @Override </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">Object</span> invoke(<span class="keyword">Object</span> proxy, Method method, <span class="keyword">Object</span>[] args) <span class="keyword">throws</span> Throwable &#123; <span class="comment">//对动态代理类的调用都会调用invoke()函数</span></span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"before"</span>); </span><br><span class="line">        <span class="keyword">Object</span> result = method.invoke(obj, args); </span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"after"</span>); </span><br><span class="line">        <span class="keyword">return</span> result; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>main函数<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line">        <span class="comment">//创建中介类实例 </span></span><br><span class="line">        DynamicProxy inter = <span class="keyword">new</span> <span class="type">DynamicProxy</span>(<span class="keyword">new</span> <span class="type">Vendor</span>()); </span><br><span class="line">        <span class="comment">//加上这句将会产生一个$Proxy0.class文件，这个文件即为动态生成的代理类文件       System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles","true"); </span></span><br><span class="line">        <span class="comment">//获取代理类实例sell </span></span><br><span class="line">        Sell sell = (Sell)(Proxy.<span class="keyword">new</span><span class="type">ProxyInstance</span>(Sell.class.getClassLoader(), <span class="keyword">new</span> <span class="type">Class</span>[] &#123;Sell.class&#125;, inter)); </span><br><span class="line">        <span class="comment">//通过代理类对象调用代理类方法，实际上会转到invoke方法调用 </span></span><br><span class="line">        sell.sell(); </span><br><span class="line">        sell.ad(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="？？？JAVA反射"><a href="#？？？JAVA反射" class="headerlink" title="？？？JAVA反射"></a>？？？JAVA反射</h2><p>缺一部分JAVA反射的内容，这一块一直有点不太明白<br>实战内容暂时战略性跳过</p>
+<h1 id="Charpter-10-11-JAVA优化"><a href="#Charpter-10-11-JAVA优化" class="headerlink" title="Charpter 10~11 JAVA优化"></a>Charpter 10~11 JAVA优化</h1><h2 id="早期优化"><a href="#早期优化" class="headerlink" title="早期优化"></a>早期优化</h2><h3 id="泛型擦除"><a href="#泛型擦除" class="headerlink" title="泛型擦除"></a>泛型擦除</h3><p>JAVA实现泛型的方法是伪泛型，也就是说ArrayList<int>和ArrayList<string>其实在JVM看来是一个东西</string></int></p>
+<h3 id="自动装箱"><a href="#自动装箱" class="headerlink" title="自动装箱"></a>自动装箱</h3><p>就是指在基础类的包装类初始化或者赋值的时候会自动帮程序员生成一些初始化或者赋值的代码，例如Integer类，以及String类，主要是为了方便编码考虑<br>例如List<integer> list=Arrays.asList(1,2,3,4,5)  在编译的时候会自动变成<br>List list=Arrays.saList(new Integer<a href="Integer.valueOf(1"></a>,<br>Integer.valueOf(2),<br>Integer.valueOf(3),<br>Integer.valueOf(4),<br>Integer.valueOf(5)))</integer></p>
+<h3 id="自动拆箱"><a href="#自动拆箱" class="headerlink" title="自动拆箱"></a>自动拆箱</h3><p>自动拆箱是指将包装类还原成基础类的操作，例如获取到Integer的值并于int进行算数操作</p>
+<h3 id="遍历循环"><a href="#遍历循环" class="headerlink" title="遍历循环"></a>遍历循环</h3><p>遍历循环是指使用for（int i：list）这种模式的时候将代码自动还原成迭代器的实现<br>for(Iterator localIterator = list.iterator() ; localIterator.hasNext(); )</p>
+<h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><p>将if分支中不成立的代码擦除掉</p>
+<h2 id="晚期优化"><a href="#晚期优化" class="headerlink" title="晚期优化"></a>晚期优化</h2><p>java程序一般是由<strong>解释器</strong>进行一行一行解释执行，但是会通过<strong>即时编译器</strong>（JIT编译器，just in time）将<strong>热点代码</strong>编译成本地机器码来提高整个程序运行的性能<br>解释器可以省去编译的时间，将代码立即执行，编译器可以在后续运行中提供更高的运行效率<br>HotSpot虚拟机使用分层优化的策略：<br>第0层：解释器<br>第1层：C1（Client）编译器，简单可靠的优化<br>第2层：C2（Server）编译器，耗时长优化，激进优化<br>热点代码触发条件主要有两类：</p>
+<ul>
+<li>被多次执行的方法</li>
+<li>被多次执行的循环体——<strong>栈上替换（OSR）**</strong>在方法运行的过程中如果发现热点代码块就还是将<strong><strong>整个方法</strong></strong>进行编译并在方法栈帧上面替换**<h3 id="热点探测方法"><a href="#热点探测方法" class="headerlink" title="热点探测方法"></a>热点探测方法</h3></li>
+<li>基于采样的热点探测：JVM周期性探测栈顶元素</li>
+<li>基于计数器的热点探测：为每个方法或者代码块建立计数器，为HotSpot虚拟机使用的热点探测方法</li>
+</ul>
+<p>两种计数器工作方式都是，首先看代码有没有编译过的版本，如果没有就计数器加一，然后看计数器是否超过阈值，如果没有就解释执行，如果超过了就另开一个<strong>异步</strong>线程进行编译（如果是回边计数器就提交OSR编译请求）</p>
+<ul>
+<li>方法调用计数器：对方法进行计数，计数器热度衰减，超过一定时间计数器减半</li>
+<li>回边计数器：对循环体进行计数，字节码跳转指令被成为回边（BackEdge）<h3 id="编译器的优化"><a href="#编译器的优化" class="headerlink" title="编译器的优化"></a>编译器的优化</h3>Client Compiler的优化：主要是进行局部性优化，放弃了耗时较长的优化（Server’端优化则进行了基本上所有优化手段，因为服务器端启动速度慢一点可以接受）<br>Client Compiler优化主要分为三个阶段：<ol>
+<li>字节码——方法内联，常量传播等——HIR（High Level Intermdiate Representation，高级中间代码表示）静态单分配的模式</li>
+<li>HIR——空值检查消除，范围检查消除——优化后的HIR——LLR（Low Level Intermdiate Representation，低级中间代码表示，这个是后端产生的）</li>
+<li>平台相关的后端：线性扫描分配寄存器——窥孔优化——机器码生成</li>
+</ol>
+</li>
+</ul>
+<p>Server Compiler使用名为Ideal的SSA形式程序依赖图，然后依次进行优化</p>
+<h3 id="编译优化技术"><a href="#编译优化技术" class="headerlink" title="编译优化技术"></a>编译优化技术</h3><ul>
+<li>公共子表达式消除</li>
+</ul>
+<p>用一个结果值E来代替重复的运算表达式，避免重复运算</p>
+<ul>
+<li>数组边界擦除</li>
+</ul>
+<p>并不在每次循环的时候都进行数组指针越界检查，例如循环中使用数组，只用检查下标是否在0~length之间</p>
+<ul>
+<li>方法内联</li>
+</ul>
+<p>方法A调用方法B，则将B代码复制到A中，这个的好处是更方便别的优化手段，例如更容易发现DeadCode<br><strong>PS.只有静态方法才可以直接内联，大部分java方法默认是虚方法要进行多态选择的所以无法内联</strong><br>为了解决虚方法继承问题，编译器用了<strong>CHA（Class Hierachy Analysis，类继承关系分析）</strong>的技术，如果在运行过程中该方法没有别的实现，那么久内联，但是要留一个<strong>逃生门</strong>，当遇到别的实现的时候需要退回到解释器或者重新编译</p>
+<ul>
+<li>逃逸分析</li>
+</ul>
+<p>分析对象的作用域，如果不会被外部程序引用或者被其他线程访问的话就会进行一些比较高效的优化</p>
+<ul>
+<li>栈上分配</li>
+<li>同步消除</li>
+<li>标量替换：将聚合量（比如对象）拆分成小的标量（比如int等）<h1 id="Charpter-12-JAVA内存模型"><a href="#Charpter-12-JAVA内存模型" class="headerlink" title="Charpter 12 JAVA内存模型"></a>Charpter 12 JAVA内存模型</h1><h2 id="volatile变量"><a href="#volatile变量" class="headerlink" title="volatile变量"></a>volatile变量</h2>如果对volatile的操作不是原子性的，那么其实还是需要用同步锁来进行同步操作（例如自增）<br>原因是可以保证工作内存都获得主内存中最新的内容，但是并不能保证入栈之后别的变量没有同时对这个变量进行操作<br>volatile只能保证变量被刷新之后立即被同步到主内存中并且可以被其他线程可见<br>volatile变量适用场景：</li>
+<li>控制并发</li>
+<li>防止指令冲排列</li>
+</ul>
+<p>内存模型需要遵守的原则：<strong>原子性，可见性，有序性</strong></p>
+<h2 id="JAVA线程模型"><a href="#JAVA线程模型" class="headerlink" title="JAVA线程模型"></a>JAVA线程模型</h2><h3 id="JAVA线程类型"><a href="#JAVA线程类型" class="headerlink" title="JAVA线程类型"></a>JAVA线程类型</h3><ul>
+<li><strong>内核线程实现：</strong>一对一线程模型</li>
+<li>用户线程实现：一对多线程模型</li>
+<li>用户线程+轻量级进程混合实现：多对多线程模型</li>
+<li>java线程模型：Windows&amp;Linux 一对一   Solaris：一对多<h3 id="JAVA线程调度"><a href="#JAVA线程调度" class="headerlink" title="JAVA线程调度"></a>JAVA线程调度</h3>系统线程调度方式（java通过线程优先级来建议系统的线程调度）</li>
+<li>协同式线程调度</li>
+<li>抢占式线程调度<h3 id="JAVA线程状态"><a href="#JAVA线程状态" class="headerlink" title="JAVA线程状态"></a>JAVA线程状态</h3></li>
+<li>新建</li>
+<li>运行：Running or Ready</li>
+<li>无限期等待</li>
+<li>限期等待</li>
+<li><strong>阻塞（Blocked）：等待获取到一个排他锁</strong></li>
+<li>结束<h1 id="Charpter-13-线程安全和锁优化"><a href="#Charpter-13-线程安全和锁优化" class="headerlink" title="Charpter 13 线程安全和锁优化"></a>Charpter 13 线程安全和锁优化</h1><h2 id="JAVA线程安全"><a href="#JAVA线程安全" class="headerlink" title="JAVA线程安全"></a>JAVA线程安全</h2><h3 id="synchronized锁"><a href="#synchronized锁" class="headerlink" title="synchronized锁"></a>synchronized锁</h3>synchronized锁住的是<strong>括号中的对象</strong>，即保证该对象在同一时间只能有一个线程进行操作<br>如果想要全局锁，就锁住整个class，即synchronized（Sync.class）{}<br>如果不写默认是锁住this对象<br>static synchronized方法相当于全局锁<br>synchronized 重量级锁<h3 id="ReentrantLock锁"><a href="#ReentrantLock锁" class="headerlink" title="ReentrantLock锁"></a>ReentrantLock锁</h3>线程竞争激烈时，lock锁性能更优<br>但是需要在finally里面unlock释放锁<br>Lock可以让等待锁的线程响应中断<br>Lock可以实现等待可中断，公平锁，多条件锁<br>1.6以上性能差不多<h2 id="JVM线程安全实现方法"><a href="#JVM线程安全实现方法" class="headerlink" title="JVM线程安全实现方法"></a>JVM线程安全实现方法</h2>synchronized会生成monitorenter和monitorexit字节码，monitorenter获取到对象的锁则计数器加一，monitorexit减一，计数器为0的时候释放对象<h3 id="非阻塞同步"><a href="#非阻塞同步" class="headerlink" title="非阻塞同步"></a>非阻塞同步</h3>互斥锁其实是一种悲观锁，但是由于用户和核心态转换（JAVA线程是直接映射到操作系统上面的），维护锁的成本造成的性能问题，现在开始用一种乐观锁的模式，即先不锁，如果有并发问题再进行补救，这需要操作系统中<strong>冲突检测和操作具有原子性</strong><br>硬件层面的原子指令有：<br>测试并设置<br>获取并增加<br>交换<br>比较并交换（CAS）：incrementAndGet()有具有原子性<br>加载连接/条件存储（LL/SC）<br>volatile–&gt;AtomicInteger<h3 id="可重入代码（Reentrant-Code）"><a href="#可重入代码（Reentrant-Code）" class="headerlink" title="可重入代码（Reentrant Code）"></a>可重入代码（Reentrant Code）</h3>不依赖存储在堆上面的数据和公用的系统资源，结果是可预测的，可重入代码是线程安全的<h3 id="线程本地存储"><a href="#线程本地存储" class="headerlink" title="线程本地存储"></a>线程本地存储</h3>把共享数据的代码尽量限制在同一个进程中进行，例如消息队列模式，<br>本地线程变量存储，ThreadLocalMap<h2 id="高效并发（锁优化）"><a href="#高效并发（锁优化）" class="headerlink" title="高效并发（锁优化）"></a>高效并发（锁优化）</h2><h3 id="自旋锁-amp-自适应自旋"><a href="#自旋锁-amp-自适应自旋" class="headerlink" title="自旋锁&amp;自适应自旋"></a>自旋锁&amp;自适应自旋</h3>让请求锁的程序运行一个或几个忙循环（其实就是空循环）而不是放弃对cpu的控制进行挂起，这样可以减少切入核心和用户的性能损耗，jdk1.6之后是自适应自旋，也就是通过自旋经验来对自旋次数进行控制<h3 id="锁消除-amp-锁粗化"><a href="#锁消除-amp-锁粗化" class="headerlink" title="锁消除&amp;锁粗化"></a>锁消除&amp;锁粗化</h3>锁消除是通过逃逸分析（java编译器优化部分内容），如果检测到这段代码中的变量并不会逃逸，就会消除这个代码块的锁，比如一些加锁的类和对象操作，比如对局部对象的加锁其实意义不大<br>锁粗化就是如果jvm发现循环对一个对象加锁，则会将锁范围扩大到循环外面，以免不停的进行加锁和释放工作<h3 id="？？轻量级锁"><a href="#？？轻量级锁" class="headerlink" title="？？轻量级锁"></a>？？轻量级锁</h3>通过CAS将对象头的MarkWord更新为置项Lock Record的指针，如果成功了就处于轻量级锁状态，其他线程如果同时用CAS获取这个对象的锁的时候就会失败，两个及以上线程获取这个对象，就需要把轻量级锁更新为重量级锁，并让别的线程等待，这样在第一个线程通过CAS解锁的时候就会失败，说明这个对象资源存在竞争，在释放锁的同时唤醒挂起的线程<br>轻量级锁适合竞争小或者没有竞争的时候，如果存在竞争，那么开销会增大<br>本质是一种乐观的锁模式，消除同步使用的互斥量<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3>偏向锁更夸张一点，第一个线程获取到对象之后，把对象的MarkWord设置为01，同时添加线程ID等信息，同时用CAS操作把进程ID放到对象的MarkWord里面，然后每次这个进程遇到这个锁（对象）的时候，就不进行锁定解锁等操作了<br>这时候如果第二个线程来了想要获取这个锁，就结束这个状态，变为轻量级锁或者未锁定状态<br>偏向锁也是认为该部分代码需要同步但是并不需要竞争</li>
+</ul>
+<p>### </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/springboot2部署到外部tomcat出现404问题解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1475,146 +1663,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Github-Gitee-hexo搭建博客/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="papaya">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Papaya‘s blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/29/Github-Gitee-hexo搭建博客/" itemprop="url">Github/Gitee+hexo搭建博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T14:07:42+08:00">
-                2019-03-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>注册Github/Gitee账号，安装Git客户端，生成并配置GitHub公钥，截图步骤略（这一步是为了让后面推送时不需要每次都输入账号密码）</li>
-<li>创建仓库并在设置中开启Git Pages功能<br><em>最好两者仓库的名字都相同，Github Page要求仓库名字为 [账号名].github.io，Gitee无要求但不可以以.git结尾</em><br> 例如我的github帐号名为Papayaaaaa<br> 则Github Page 仓库为名为 Papayaaaaa.github.io  Gitee仓库名为Papayaaaaa<br> Github(Pages配置在settings页面最底部，默认配置就ok) <img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-1.jpg" title="This is an image">
- Gitee <img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-2.jpg" title="This is an image"></li>
-<li>安装Node.js，网址略，安装完成后查看nodejs版本及npm版本验证安装是否完成 <img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-3.jpg" title="This is an image"></li>
-<li>安装Hexo，在电脑中创建一个新文件夹，命名为Papayaaaaa.github.io作为博客文件夹<br> <strong><strong>看到有博客说名称和仓库名不同会有问题但是理论上不同名也应该ok的，不想麻烦的话建议还是同名</strong></strong></li>
-<li>在文件夹中打开cmd（按住Shift右键）<br> 使用npm命令安装Hexo<br> <code>npm install -g hexo-cli</code></li>
-<li>安装Git插件  cmd输入<br><code>npm install hexo-deployer-git --save</code></li>
-<li>初始化博客，cmd输入<br><code>hexo init blog</code></li>
-<li>创建一个新页面， cmd输入<br><code>hexo new &quot;My first blog&quot;</code><br> 这句命令即创建一个新的名为My first blog的页面，页面以.md文件储存在/source/_post/文件夹下，页面语言为Markdown</li>
-<li>生成静态博客页面   <code>hexo g</code>   g即generate，生成博客</li>
-<li>本地测试博客框架  <code>hexo s</code>   s即server， 可以在localhost:4000查看本地博客框架<img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-4.jpg" title="This is an image"></li>
-<li>将本地博客推送到Github/Gitee<br>修改站点根目录下的站点配置文件_config.yml，记事本或Notepad打开<br>修改最下面一行<img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-5.jpg" title="This is an image">
-文件最开头可以设置博客标题等<img src="/2019/03/29/Github-Gitee-hexo搭建博客/20170929-6.jpg" title="This is an image">
-修改完保存文件，本地博客根目录下命令行<br><code>hexo clean</code><br> <code>hexo g</code><br> <code>hexo d</code>##即deploy，进行远程推送</li>
-<li>每次自己在本地写好博客都可以通过这三个命令进行页面生成与推送</li>
-<li>貌似推送到gitee需要在source文件夹下建立一个Staticfile文件否则无法识别静态网页（？不知道为啥）</li>
-</ol>
-<p><strong>遇到的一些问题：</strong><br>之前在Gitee上的仓库名称和我账号名称不一样，推送之后在Gitee上就无法显示出页面，设置_config.yml的url和root属性可以解决但设置之后Github上又显示不出来框架只显示静态页面，搞了半天也不知都为啥，最后只能删了重来大家都统一命名，猜测是命名不同会导致路径的一些变化，dbq本人真的是纯正的半桶水orz</p>
-<p><strong>PS：</strong><br>码云（Gitee）上推送后无法自动部署网站，每次推送后需要自己手动部署（自动部署需要购买VIP 99r/year），其实用Gitee本来是觉得会快一点但是好像也没有快很多的样子orz.</p>
-<p><strong>PPS：</strong><br>绑定域名就按网上来就ok，但是注意直接在仓库根目录建立CNAME文件在第二次推送的时候会被覆盖掉因此需要在本地目录/source文件夹下建立CNAME文件。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1667,7 +1715,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1680,7 +1728,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
